@@ -1,17 +1,28 @@
+
 const express = require('express')
 const app =express()
 const path=require('path')
+const createLog=require('./middleware/createLog.js');
+
 
 //port number
 const PORT=process.env.PORT||3500;
+
+//logging
+app.use((req, res, next) => {
+    createLog(`${req.method}\t ${req.headers.origin}\t ${req.url}`,'reqLog.txt');
+    next();
+});
+
 
 //middleware
 //to accept the data provided by the user either through html-forms or as JSON from other sources
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 //for allowing acces to static(css,img) contents
-app.use(express.static(path.join(__dirname,'assets')))
-console.log((path.join(__dirname,'./public')))
+//app.use(express.static(path.join(__dirname,'./assets')))
+app.use('/assets', express.static('assets'));
+    
 
 //request and responses
 

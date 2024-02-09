@@ -1,8 +1,10 @@
 *{
     background-color: black;
 }
+.box{
+    margin-left: 30%;
+}
 h1,a{
-    margin: auto;
     margin-top: 30%;
     color: red;
 }
